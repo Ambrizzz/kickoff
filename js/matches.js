@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   let currentLeague = 'nfl'; // fixed to NFL
-  let currentSeasonType = '2';
+  let currentSeasonType = '1';
 
   // Intervalo dinámico (NFL-only)
   function computeLiveIntervalMs(liveCount) {
@@ -110,14 +110,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Base URL ESPN NFL
   function buildScoreboardBaseUrl(seasonType) {
-    const year = 2025;
+    const year = 2026;
     return `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=${year}&seasontype=${seasonType}`;
   }
 
   // Detect current season type (pre/regular/post) and week using ESPN calendar windows.
   // More robust: first tries to read "current" from the calendar root; falls back to window scanning if needed.
   async function detectSeasonTypeAndWeek() {
-    const year = 2025;
+    const year = 2026;
     const base = `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=${year}`;
 
     // Try grabbing "current" directly from calendar root
