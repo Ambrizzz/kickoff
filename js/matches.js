@@ -1,3 +1,4 @@
+const SEASON_YEAR = 2026;
 const liveIntervals = {};
 const suspendedGames = new Set(["401773016"]);
 
@@ -110,15 +111,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Base URL ESPN NFL
   function buildScoreboardBaseUrl(seasonType) {
-    const year = 2026;
-    return `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=${year}&seasontype=${seasonType}`;
+    return `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=${SEASON_YEAR}&seasontype=${seasonType}`;
   }
 
   // Detect current season type (pre/regular/post) and week using ESPN calendar windows.
   // More robust: first tries to read "current" from the calendar root; falls back to window scanning if needed.
   async function detectSeasonTypeAndWeek() {
-    const year = 2026;
-    const base = `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=${year}`;
+    const base = `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=${SEASON_YEAR}`;
 
     // Try grabbing "current" directly from calendar root
     try {
@@ -226,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Safeguard: if detected preseason but regular is ongoing, override to regular
     try {
       if (detected?.seasonType === '1') {
-        const base = `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=2025&seasontype=2`;
+        const base = `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=${SEASON_YEAR}&seasontype=2`;
         const res = await fetch(base);
         const data = await res.json();
         const calRoot = data?.leagues?.[0]?.calendar;
@@ -288,11 +287,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function getScheduleUrl(week) {
     if (currentSeasonType === '1') {
-      return `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=2025&seasontype=1&week=${week}`;
+      return `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=${SEASON_YEAR}&seasontype=1&week=${week}`;
     } else if (currentSeasonType === '2') {
-      return `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=2025&seasontype=2&week=${week}`;
+      return `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=${SEASON_YEAR}&seasontype=2&week=${week}`;
     } else {
-      return `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=2025&seasontype=3&week=${week}`;
+      return `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=${SEASON_YEAR}&seasontype=3&week=${week}`;
     }
   }
 
