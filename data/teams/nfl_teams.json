@@ -1,193 +1,289 @@
 {
   "ARI": {
+    "id": "22",
     "displayName": "Arizona Cardinals",
     "abbr": "ARI",
+    "conference": "NFC",
+    "division": "West",
     "logo": "/data/teams/logos/ari.png",
     "color": "#a40227"
   },
   "ATL": {
+    "id": "1",
     "displayName": "Atlanta Falcons",
     "abbr": "ATL",
+    "conference": "NFC",
+    "division": "South",
     "logo": "/data/teams/logos/atl.png",
     "color": "#a71930"
   },
   "BAL": {
+    "id": "33",
     "displayName": "Baltimore Ravens",
     "abbr": "BAL",
+    "conference": "AFC",
+    "division": "North",
     "logo": "/data/teams/logos/bal.png",
     "color": "#29126f"
   },
   "BUF": {
+    "id": "2",
     "displayName": "Buffalo Bills",
     "abbr": "BUF",
+    "conference": "AFC",
+    "division": "East",
     "logo": "/data/teams/logos/buf.png",
     "color": "#00338d"
   },
   "CAR": {
+    "id": "29",
     "displayName": "Carolina Panthers",
     "abbr": "CAR",
+    "conference": "NFC",
+    "division": "South",
     "logo": "/data/teams/logos/car.png",
     "color": "#0085ca"
   },
   "CHI": {
+    "id": "3",
     "displayName": "Chicago Bears",
     "abbr": "CHI",
+    "conference": "NFC",
+    "division": "North",
     "logo": "/data/teams/logos/chi.png",
     "color": "#0b1c3a"
   },
   "CIN": {
+    "id": "4",
     "displayName": "Cincinnati Bengals",
     "abbr": "CIN",
+    "conference": "AFC",
+    "division": "North",
     "logo": "/data/teams/logos/cin.png",
     "color": "#fb4f14"
   },
   "CLE": {
+    "id": "5",
     "displayName": "Cleveland Browns",
     "abbr": "CLE",
+    "conference": "AFC",
+    "division": "North",
     "logo": "/data/teams/logos/cle.png",
     "color": "#472a08"
   },
   "DAL": {
+    "id": "6",
     "displayName": "Dallas Cowboys",
     "abbr": "DAL",
+    "conference": "NFC",
+    "division": "East",
     "logo": "/data/teams/logos/dal.png",
     "color": "#002a5c"
   },
   "DEN": {
+    "id": "7",
     "displayName": "Denver Broncos",
     "abbr": "DEN",
+    "conference": "AFC",
+    "division": "West",
     "logo": "/data/teams/logos/den.png",
     "color": "#0a2343"
   },
   "DET": {
+    "id": "8",
     "displayName": "Detroit Lions",
     "abbr": "DET",
+    "conference": "NFC",
+    "division": "North",
     "logo": "/data/teams/logos/det.png",
     "color": "#0076b6"
   },
   "GB": {
+    "id": "9",
     "displayName": "Green Bay Packers",
     "abbr": "GB",
+    "conference": "NFC",
+    "division": "North",
     "logo": "/data/teams/logos/gb.png",
     "color": "#204e32"
   },
   "HOU": {
+    "id": "34",
     "displayName": "Houston Texans",
     "abbr": "HOU",
+    "conference": "AFC",
+    "division": "South",
     "logo": "/data/teams/logos/hou.png",
     "color": "#00143f"
   },
   "IND": {
+    "id": "11",
     "displayName": "Indianapolis Colts",
     "abbr": "IND",
+    "conference": "AFC",
+    "division": "South",
     "logo": "/data/teams/logos/ind.png",
     "color": "#003b75"
   },
   "JAX": {
+    "id": "30",
     "displayName": "Jacksonville Jaguars",
     "abbr": "JAX",
+    "conference": "AFC",
+    "division": "South",
     "logo": "/data/teams/logos/jax.png",
     "color": "#007487"
   },
   "KC": {
+    "id": "12",
     "displayName": "Kansas City Chiefs",
     "abbr": "KC",
+    "conference": "AFC",
+    "division": "West",
     "logo": "/data/teams/logos/kc.png",
     "color": "#e31837"
   },
   "LAC": {
+    "id": "24",
     "displayName": "Los Angeles Chargers",
     "abbr": "LAC",
+    "conference": "AFC",
+    "division": "West",
     "logo": "/data/teams/logos/lac.png",
     "color": "#0080c6"
   },
   "LAR": {
+    "id": "14",
     "displayName": "Los Angeles Rams",
     "abbr": "LAR",
+    "conference": "NFC",
+    "division": "West",
     "logo": "/data/teams/logos/lar.png",
     "color": "#003594"
   },
   "LV": {
+    "id": "13",
     "displayName": "Las Vegas Raiders",
     "abbr": "LV",
+    "conference": "AFC",
+    "division": "West",
     "logo": "/data/teams/logos/lv.png",
     "color": "#000000"
   },
   "MIA": {
+    "id": "15",
     "displayName": "Miami Dolphins",
     "abbr": "MIA",
+    "conference": "AFC",
+    "division": "East",
     "logo": "/data/teams/logos/mia.png",
     "color": "#008e97"
   },
   "MIN": {
+    "id": "16",
     "displayName": "Minnesota Vikings",
     "abbr": "MIN",
+    "conference": "NFC",
+    "division": "North",
     "logo": "/data/teams/logos/min.png",
     "color": "#4f2683"
   },
   "NE": {
+    "id": "17",
     "displayName": "New England Patriots",
     "abbr": "NE",
+    "conference": "AFC",
+    "division": "East",
     "logo": "/data/teams/logos/ne.png",
     "color": "#002a5c"
   },
   "NO": {
+    "id": "18",
     "displayName": "New Orleans Saints",
     "abbr": "NO",
+    "conference": "NFC",
+    "division": "South",
     "logo": "/data/teams/logos/no.png",
     "color": "#d3bc8d"
   },
   "NYG": {
+    "id": "19",
     "displayName": "New York Giants",
     "abbr": "NYG",
+    "conference": "NFC",
+    "division": "East",
     "logo": "/data/teams/logos/nyg.png",
     "color": "#003c7f"
   },
   "NYJ": {
+    "id": "20",
     "displayName": "New York Jets",
     "abbr": "NYJ",
+    "conference": "AFC",
+    "division": "East",
     "logo": "/data/teams/logos/nyj.png",
     "color": "#115740"
   },
   "PHI": {
+    "id": "21",
     "displayName": "Philadelphia Eagles",
     "abbr": "PHI",
+    "conference": "NFC",
+    "division": "East",
     "logo": "/data/teams/logos/phi.png",
     "color": "#06424d"
   },
   "PIT": {
+    "id": "23",
     "displayName": "Pittsburgh Steelers",
     "abbr": "PIT",
+    "conference": "AFC",
+    "division": "North",
     "logo": "/data/teams/logos/pit.png",
     "color": "#000000"
   },
   "SEA": {
+    "id": "26",
     "displayName": "Seattle Seahawks",
     "abbr": "SEA",
+    "conference": "NFC",
+    "division": "West",
     "logo": "/data/teams/logos/sea.png",
     "color": "#002a5c"
   },
   "SF": {
+    "id": "25",
     "displayName": "San Francisco 49ers",
     "abbr": "SF",
+    "conference": "NFC",
+    "division": "West",
     "logo": "/data/teams/logos/sf.png",
     "color": "#aa0000"
   },
   "TB": {
+    "id": "27",
     "displayName": "Tampa Bay Buccaneers",
     "abbr": "TB",
+    "conference": "NFC",
+    "division": "South",
     "logo": "/data/teams/logos/tb.png",
     "color": "#bd1c36"
   },
   "TEN": {
+    "id": "10",
     "displayName": "Tennessee Titans",
     "abbr": "TEN",
+    "conference": "AFC",
+    "division": "South",
     "logo": "/data/teams/logos/ten.png",
     "color": "#4b92db"
   },
   "WAS": {
+    "id": "28",
     "displayName": "Washington Commanders",
     "abbr": "WAS",
+    "conference": "NFC",
+    "division": "East",
     "logo": "/data/teams/logos/wsh.png",
     "color": "#5a1414"
   }

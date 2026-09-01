@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   let currentLeague = 'nfl'; // fixed to NFL
-  let currentSeasonType = '1';
+  let currentSeasonType = '2';
 
   // Intervalo dinámico (NFL-only)
   function computeLiveIntervalMs(liveCount) {

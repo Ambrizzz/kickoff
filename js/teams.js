@@ -13,6 +13,15 @@
       NYJ:{conf:'AFC',div:'East'}, PHI:{conf:'NFC',div:'East'}, PIT:{conf:'AFC',div:'North'}, SEA:{conf:'NFC',div:'West'},
       SF:{conf:'NFC',div:'West'}, TB:{conf:'NFC',div:'South'}, TEN:{conf:'AFC',div:'South'}, WSH:{conf:'NFC',div:'East'}, WAS:{conf:'NFC',div:'East'}
     };
+
+    // Hardcoded ESPN team IDs (offline fallback — no network needed to resolve a team)
+    const ESPN_TEAM_IDS = {
+      ARI:'22', ATL:'1', BAL:'33', BUF:'2', CAR:'29', CHI:'3', CIN:'4', CLE:'5',
+      DAL:'6', DEN:'7', DET:'8', GB:'9', HOU:'34', IND:'11', JAX:'30', KC:'12',
+      LAC:'24', LAR:'14', LV:'13', MIA:'15', MIN:'16', NE:'17', NO:'18', NYG:'19',
+      NYJ:'20', PHI:'21', PIT:'23', SEA:'26', SF:'25', TB:'27', TEN:'10',
+      WSH:'28', WAS:'28'
+    };
   
     // Cache en memoria
     let TEAM_MAP = null;              // { "DET": {id, abbreviation, displayName, conference, division, logo}, ... }
@@ -118,10 +127,11 @@
 
     // Helper: resolve a team id from ESPN by abbreviation or name
     async function resolveTeamId(abbrOrName) {
+      const key = String(abbrOrName || '').toUpperCase();
+      if (ESPN_TEAM_IDS[key]) return ESPN_TEAM_IDS[key];
       try {
         const data = await fetchJSON('https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams');
         const teams = (data?.sports?.[0]?.leagues?.[0]?.teams || []).map(t => t.team);
-        const key = String(abbrOrName || '').toUpperCase();
         const found = teams.find(tt => String(tt.abbreviation || '').toUpperCase() === key) ||
                       teams.find(tt => String(tt.displayName || '').toUpperCase() === key) ||
                       null;
@@ -136,7 +146,8 @@
       const out = {};
       Object.values(mapIn).forEach(t => {
         const abbr = String(t.abbreviation || t.abbr || '').toUpperCase();
-        const id = String(t.id || '');
+        let id = String(t.id || '').trim();
+        if (!id && ESPN_TEAM_IDS[abbr]) id = ESPN_TEAM_IDS[abbr];
         const cd = CONF_DIV_BY_ABBR[abbr] || { conf: t.conference, div: t.division };
         const conf = normalizeConference(cd?.conf || t.conference || '');
         const div  = normalizeDivision(cd?.div || t.division || '');
