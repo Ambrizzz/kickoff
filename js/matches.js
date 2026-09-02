@@ -99,7 +99,8 @@ document.addEventListener('DOMContentLoaded', () => {
     container.style.display = '';
   }
 
-  let currentLeague = 'nfl'; // fixed to NFL
+  let currentLeague = 'nfl';
+  const FORCE_SEASON_TYPE = true;
   let currentSeasonType = '2';
 
   // Intervalo dinámico (NFL-only)
@@ -132,10 +133,10 @@ document.addEventListener('DOMContentLoaded', () => {
           String(current.value ?? current.seasontype ?? current.seasonType ?? '2');
         const wk =
           String(current.week?.number ??
-                 current.weekNumber ??
-                 root?.week?.number ??
-                 root?.events?.[0]?.week?.number ??
-                 '1');
+                current.weekNumber ??
+                root?.week?.number ??
+                root?.events?.[0]?.week?.number ??
+                '1');
         if (st && wk) {
           return { seasonType: st, week: wk, data: root };
         }
@@ -220,50 +221,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Init filtros + render
   async function initDefaultWeekAndRender() {
-    // Detect actual season + week from ESPN and sync the UI before first render
-    const detected = await detectSeasonTypeAndWeek();
-    // --- Safeguard: if detected preseason but regular is ongoing, override to regular
-    try {
-      if (detected?.seasonType === '1') {
-        const base = `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=${SEASON_YEAR}&seasontype=2`;
-        const res = await fetch(base);
-        const data = await res.json();
-        const calRoot = data?.leagues?.[0]?.calendar;
-        const regNode = Array.isArray(calRoot) ? calRoot.find(n => String(n?.value) === '2') : null;
-        const weeks = regNode?.entries || regNode?.calendar || [];
-        const now = new Date();
-        const activeReg = (weeks || []).find(w => {
-          const sd = w?.startDate ? new Date(w.startDate) : null;
-          const ed = w?.endDate ? new Date(w.endDate) : null;
-          return sd && ed && now >= sd && now <= ed;
-        });
-        if (activeReg) {
-          detected.seasonType = '2';
-          detected.week = String(activeReg.value ?? activeReg.weekNumber ?? activeReg.number ?? detected.week);
+    let detected = null;
+    if (!FORCE_SEASON_TYPE) {
+      detected = await detectSeasonTypeAndWeek();
+      try {
+        if (detected?.seasonType === '1') {
+          const base = `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=${SEASON_YEAR}&seasontype=2`;
+          const res = await fetch(base);
+          const data = await res.json();
+          const calRoot = data?.leagues?.[0]?.calendar;
+          const regNode = Array.isArray(calRoot) ? calRoot.find(n => String(n?.value) === '2') : null;
+          const weeks = regNode?.entries || regNode?.calendar || [];
+          const now = new Date();
+          const activeReg = (weeks || []).find(w => {
+            const sd = w?.startDate ? new Date(w.startDate) : null;
+            const ed = w?.endDate ? new Date(w.endDate) : null;
+            return sd && ed && now >= sd && now <= ed;
+          });
+          if (activeReg) {
+            detected.seasonType = '2';
+            detected.week = String(activeReg.value ?? activeReg.weekNumber ?? activeReg.number ?? detected.week);
+          }
         }
+      } catch {}
+      if (detected?.seasonType) {
+        currentSeasonType = detected.seasonType;
       }
-    } catch {}
-    if (detected?.seasonType) {
-      currentSeasonType = detected.seasonType;
-    }
-    else {
-      currentSeasonType = '2';
+      else {
+        currentSeasonType = '2';
+      }
     }
     updateSeasonTypeFilterForLeague();
     updateWeekFilterForSeasonType();
 
-    if (!detected?.week) {
-      // Default to Week 1 for Regular Season preset
+    if (!FORCE_SEASON_TYPE && detected?.week && [...weekFilter.options].some(o => o.value === detected.week)) {
+      weekFilter.value = detected.week;
+    } else {
       const defaultWeek = '1';
       if ([...weekFilter.options].some(o => o.value === defaultWeek)) {
         weekFilter.value = defaultWeek;
       }
     }
-
-    if (detected?.week && [...weekFilter.options].some(o => o.value === detected.week)) {
-      weekFilter.value = detected.week;
-    }
-    // First paint
     await renderMatches();
   }
 
@@ -625,30 +623,38 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Toggle league (NFL only) ---
   toggleButtons.forEach(btn => {
     btn.addEventListener('click', () => {
-      if (btn.dataset.league !== 'nfl') return; // ignorar colegial
+      if (btn.dataset.league !== 'nfl') return;
       toggleButtons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       currentLeague = 'nfl';
-      // Sync season/week using ESPN detector
-      detectSeasonTypeAndWeek().then(detected => {
-        if (detected?.seasonType) currentSeasonType = detected.seasonType;
+      const doRender = () => {
         updateSeasonTypeFilterForLeague();
         updateWeekFilterForSeasonType();
-        if (detected?.week && [...weekFilter.options].some(o => o.value === detected.week)) {
-          weekFilter.value = detected.week;
+        const defaultWeek = '1';
+        if ([...weekFilter.options].some(o => o.value === defaultWeek)) {
+          weekFilter.value = defaultWeek;
         }
         renderMatches().then(() => {
-          // Aplicar el filtro de búsqueda después de renderizar los partidos
           applySearchFilter();
         });
-      }).catch(() => {
-        updateSeasonTypeFilterForLeague();
-        updateWeekFilterForSeasonType();
-        renderMatches().then(() => {
-          // Aplicar el filtro de búsqueda después de renderizar los partidos
-          applySearchFilter();
+      };
+      if (!FORCE_SEASON_TYPE) {
+        detectSeasonTypeAndWeek().then(detected => {
+          if (detected?.seasonType) currentSeasonType = detected.seasonType;
+          updateSeasonTypeFilterForLeague();
+          updateWeekFilterForSeasonType();
+          if (detected?.week && [...weekFilter.options].some(o => o.value === detected.week)) {
+            weekFilter.value = detected.week;
+          }
+          renderMatches().then(() => {
+            applySearchFilter();
+          });
+        }).catch(() => {
+          doRender();
         });
-      });
+      } else {
+        doRender();
+      }
     });
   });
 
