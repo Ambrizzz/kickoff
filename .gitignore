@@ -1,0 +1,10 @@
+.DS_*
+*.log
+
+package-lock.json
+package.json
+vercel.json
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/ff_metadata.json
