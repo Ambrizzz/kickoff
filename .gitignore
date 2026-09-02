@@ -5,6 +5,7 @@ package-lock.json
 package.json
 vercel.json
 
-.vscode/*
-!.vscode/settings.json
-!.vscode/ff_metadata.json
+.vscode
+/.vscode
+/.vscode/ff_metadata.json
+/.vscode/settings.json
